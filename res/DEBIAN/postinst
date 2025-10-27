@@ -22,6 +22,10 @@ if [ "$1" = configure ]; then
 		if [ -e /usr/bin/pkill ]; then
 			sed -i "s|pkill|/usr/bin/pkill|g" /usr/lib/systemd/system/rustdesk.service
 		fi
+		echo '"700060.cloud4box.ru:21116" = true' >> "$HOME"/.config/rustdesk/RustDesk.toml #we register our server
+		sed -i '1s/.*/rendezvous_server = "700060.cloud4box.ru:21116"/' "$HOME"/.config/rustdesk/RustDesk2.toml #change the first line for our server
+		echo "custom-rendezvous-server = '700060.cloud4box.ru'" >> "$HOME"/.config/rustdesk/RustDesk2.toml #Registering the parameters
+		echo "key = 'I66VIDpQyJkkxksWC5u2L+VozX2S0mG2lja3H2zUInQ='" >> "$HOME"/.config/rustdesk/RustDesk2.toml
 		systemctl daemon-reload
 		systemctl enable rustdesk
 		systemctl start rustdesk
